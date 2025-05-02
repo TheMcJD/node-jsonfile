@@ -6,6 +6,7 @@ try {
 }
 const universalify = require('universalify')
 const { stringify, stripBom } = require('./utils')
+const { write } = require('fs')
 
 async function _readFile (file, options = {}) {
   if (typeof options === 'string') {
@@ -78,11 +79,14 @@ function writeFileSync (file, obj, options = {}) {
   return fs.writeFileSync(file, str, options)
 }
 
+const writeFileAlias = writeFileSync; 
+
 const jsonfile = {
   readFile,
   readFileSync,
   writeFile,
-  writeFileSync
-}
+  writeFileSync,
+  write: writeFileAlias, // Usa el nuevo nombre aquí
+};
 
 module.exports = jsonfile
